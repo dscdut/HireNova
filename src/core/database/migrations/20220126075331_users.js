@@ -8,9 +8,22 @@ const DEFAULT_PASSWORD = '$2b$10$4WxWKojNnKfDAicVsveh7.ogkWOBMV1cvRUSPCXwxA05NRX
 exports.up = async knex => {
     await knex.schema.createTable(tableName, table => {
         table.increments('id').unsigned().primary();
-        table.string('full_name');
+        table.string('name');
+        table.string('avatar', 500).defaultTo(null);
         table.string('email').unique().notNullable();
         table.string('password').defaultTo(DEFAULT_PASSWORD);
+        table.boolean('active').defaultTo(false);
+        table.date('birthday').notNullable();
+        table.string('phone_number').unique().notNullable();
+        table.string('address', 500).defaultTo(null);
+        table.string('refresh_token', 500).defaultTo(null);
+        table
+            .integer('role_id')
+            .unsigned()
+            .notNullable()
+            .index()
+            .references('id')
+            .inTable('roles');
         table.dateTime('deleted_at').defaultTo(null);
         table.timestamps(false, true);
     });
