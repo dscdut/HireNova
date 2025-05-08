@@ -3,10 +3,14 @@ import { getTransaction } from 'core/database';
 import { UserRoleRepository } from 'core/modules/role/userRole.repository';
 import { joinUserRoles } from 'core/utils/userFilter';
 import { Optional } from '../../../utils';
-import { NotFoundException, DuplicateException, BadRequestException } from '../../../../packages/httpException';
+import {
+    NotFoundException,
+    DuplicateException,
+    BadRequestException,
+} from '../../../../packages/httpException';
 import { UserRepository } from '../user.repository';
 
-class Service {
+class UserService {
     constructor() {
         this.repository = UserRepository;
         this.userRoleRepository = UserRoleRepository;
@@ -15,19 +19,28 @@ class Service {
 
     async createOne(createUserDto) {
         const trx = await getTransaction();
-        Optional.of(await this.repository.findByEmail(createUserDto.email)).throwIfPresent(new DuplicateException('Email is being used'));
+        Optional.of(
+            await this.repository.findByEmail(createUserDto.email),
+        ).throwIfPresent(new DuplicateException('Email is being used'));
 
         if (createUserDto.password !== createUserDto.confirm_password) {
             throw new BadRequestException('Password does not match');
         }
-        createUserDto.password = this.bcryptService.hash(createUserDto.password);
+
+        createUserDto.password = this.bcryptService.hash(
+            createUserDto.password,
+        );
 
         let createdUser;
         try {
             delete createUserDto.confirm_password;
             createdUser = await this.repository.insert(createUserDto, trx);
             const ROLE_USER_ID = 3;
-            await this.userRoleRepository.createUserRole(createdUser[0].id, ROLE_USER_ID, trx);
+            await this.userRoleRepository.createUserRole(
+                createdUser[0].id,
+                ROLE_USER_ID,
+                trx,
+            );
         } catch (error) {
             await trx.rollback();
             this.logger.error(error.message);
@@ -44,6 +57,14 @@ class Service {
 
         return joinUserRoles(data);
     }
+
+    async register(registerDto) {
+        const createdUser = await this.createOne(registerDto);
+        return {
+            message: MESSAGE.REGISTER_SUCCESS,
+            user: pick(createdUser, ['id', 'email', 'name']),
+        };
+    }
 }
 
-export const UserService = new Service();
+export const UserServiceInstance = new UserService();
