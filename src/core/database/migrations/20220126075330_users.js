@@ -4,7 +4,8 @@
  */
 const tableName = 'users';
 // 123456
-const DEFAULT_PASSWORD = '$2b$10$4WxWKojNnKfDAicVsveh7.ogkWOBMV1cvRUSPCXwxA05NRX18F0QW';
+const DEFAULT_PASSWORD =
+    '$2b$10$4WxWKojNnKfDAicVsveh7.ogkWOBMV1cvRUSPCXwxA05NRX18F0QW';
 exports.up = async knex => {
     await knex.schema.createTable(tableName, table => {
         table.increments('id').unsigned().primary();
@@ -16,7 +17,6 @@ exports.up = async knex => {
         table.date('birthday').notNullable();
         table.string('phone_number').unique().notNullable();
         table.string('address', 500).defaultTo(null);
-        table.string('refresh_token', 500).defaultTo(null);
         table
             .integer('role_id')
             .unsigned()

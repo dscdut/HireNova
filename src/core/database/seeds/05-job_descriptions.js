@@ -1,40 +1,70 @@
-/**
- * @param {import("knex")} knex
- */
-
 exports.seed = async knex => {
+    await knex('job_postings').del();
 
-    await knex('job_descriptions').del();
-
-    await knex('job_descriptions').insert([
+    await knex('job_postings').insert([
         {
+            user_id: 1,
+            industry_id: 1,
             title: 'Software Engineer',
-            name: 'Develop and maintain web applications',
-            avatar: 'avatars/software_engineer.png',
+            description: 'Develop and maintain web applications',
+            location: 'Hanoi, Vietnam',
+            salary_min: 60000,
+            salary_max: 90000,
+            job_description_id: 1,
+            status: 'Pending',
+            level: 'Mid',
             deleted_at: null,
         },
         {
+            user_id: 2,
+            industry_id: 2,
             title: 'Data Scientist',
-            name: 'Analyze and interpret complex data',
-            avatar: 'avatars/data_scientist.png',
+            description: 'Analyze and interpret complex data',
+            location: 'Ho Chi Minh City, Vietnam',
+            salary_min: 70000,
+            salary_max: 110000,
+            job_description_id: 2,
+            status: 'Processing',
+            level: 'Senior',
             deleted_at: null,
         },
         {
+            user_id: 3,
+            industry_id: 3,
             title: 'Cybersecurity Specialist',
-            name: 'Protect systems and networks from cyber threats',
-            avatar: 'avatars/cybersecurity_specialist.png',
+            description: 'Protect systems and networks from cyber threats',
+            location: 'Da Nang, Vietnam',
+            salary_min: 80000,
+            salary_max: 120000,
+            job_description_id: 3,
+            status: 'Completed',
+            level: 'Lead',
             deleted_at: null,
         },
         {
+            user_id: 4,
+            industry_id: 4,
             title: 'Cloud Architect',
-            name: 'Design and manage cloud infrastructure',
-            avatar: 'avatars/cloud_architect.png',
+            description: 'Design and manage cloud infrastructure',
+            location: 'Hanoi, Vietnam',
+            salary_min: 90000,
+            salary_max: 140000,
+            job_description_id: 4,
+            status: 'Pending',
+            level: 'Senior',
             deleted_at: null,
         },
         {
+            user_id: 5,
+            industry_id: 5,
             title: 'AI Researcher',
-            name: 'Develop and implement AI models',
-            avatar: 'avatars/ai_researcher.png',
+            description: 'Develop and implement AI models',
+            location: 'Ho Chi Minh City, Vietnam',
+            salary_min: 100000,
+            salary_max: 160000,
+            job_description_id: 5,
+            status: 'Pending',
+            level: 'Lead',
             deleted_at: null,
         },
     ]);
