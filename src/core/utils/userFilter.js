@@ -1,4 +1,7 @@
 export const joinUserRoles = users => {
+    if (!Array.isArray(users) || users.length === 0) {
+        return null; 
+    }
     const { role, ...rest } = users[0];
     const user = { ...rest, roles: [role] };
 

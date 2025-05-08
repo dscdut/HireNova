@@ -19,7 +19,6 @@ exports.seed = async knex => {
             phone_number: '0123456789',
             address: '123 Admin Street',
             role_id: 1,
-            refresh_token: 'super_admin_refresh_token',
         },
         {
             name: 'Admin',
@@ -30,7 +29,6 @@ exports.seed = async knex => {
             phone_number: '0987654321',
             address: '456 Admin Avenue',
             role_id: 2,
-            refresh_token: 'admin_refresh_token',
         },
         {
             name: 'Pham Van A',
@@ -41,7 +39,6 @@ exports.seed = async knex => {
             phone_number: '0355521222',
             address: 'Da Nang',
             role_id: 3,
-            refresh_token: 'A_refresh_token',
         },
         {
             name: 'Nguyen Van B',
@@ -52,7 +49,6 @@ exports.seed = async knex => {
             phone_number: '0355521232',
             address: 'Da Nang',
             role_id: 3,
-            refresh_token: 'B_refresh_token',
         },
         {
             name: 'Tram Van C',
@@ -63,7 +59,6 @@ exports.seed = async knex => {
             phone_number: '0355521234',
             address: 'Da Nang',
             role_id: 3,
-            refresh_token: 'C_refresh_token',
         },
     ]);
 };
