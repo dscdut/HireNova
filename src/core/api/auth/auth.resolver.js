@@ -1,12 +1,12 @@
-import { LoginInterceptor } from 'core/modules/auth';
+import { LoginInterceptor, RegisterInterceptor } from 'core/modules/auth';
 import { Module } from 'packages/handler/Module';
 import { AuthController } from './auth.controller';
 
 export const AuthResolver = Module.builder()
     .addPrefix({
-        prefixPath: 'v1/api/auth',
+        prefixPath: '/v1/api/auth',
         tag: 'auth',
-        module: 'AuthModule'
+        module: 'AuthModule',
     })
     .register([
         {
@@ -14,6 +14,13 @@ export const AuthResolver = Module.builder()
             method: 'post',
             interceptors: [LoginInterceptor],
             body: 'LoginDto',
-            controller: AuthController.login,
+            controller: AuthController.login, 
+        },
+        {
+            route: '/register',
+            method: 'post',
+            interceptors: [RegisterInterceptor],
+            body: 'RegisterDto',
+            controller: AuthController.register, 
         },
     ]);
