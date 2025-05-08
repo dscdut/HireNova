@@ -17,19 +17,24 @@ class Service {
 
     async login(loginDto) {
         const user = await this.userRepository.findByEmail(loginDto.email);
-
-        const foundUser = joinUserRoles(user);
+        if (!user) {
+            throw new UnAuthorizedException('Email is incorrect');
+        }
+        const usersArray = [user];
+        const foundUser = joinUserRoles(usersArray);
         if (user && this.bcryptService.compare(loginDto.password, foundUser.password)) {
+            const userInfo = this.#getUserInfo(foundUser);
             return {
-                user: foundUser,
-                accessToken: this.jwtService.sign(JwtPayload(foundUser)),
+                user: userInfo,
+                accessToken: this.jwtService.accessTokenSign(JwtPayload(foundUser)),
+                refreshToken: this.jwtService.refreshTokenSign(JwtPayload(foundUser)),
             };
         }
 
-        throw new UnAuthorizedException('Email or password is incorrect');
+        throw new UnAuthorizedException('Password is incorrect');
     }
 
-    #getUserInfo = user => pick(user, ['_id', 'email', 'username', 'roles']);
+    #getUserInfo = user => pick(user, ['_id', 'email', 'name', 'roles']);
 }
 
 export const AuthService = new Service();

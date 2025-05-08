@@ -6,7 +6,8 @@ export const NODE_ENV = process.env.NODE_ENV || 'development';
 export const PORT = process.env.PORT || 3000;
 export const HOST = process.env.HOST || 'http://localhost:3000';
 export const JWT_SECRET = process.env.JWT_SECRET || 'vjppro';
-export const EXPIRE_DAYS = process.env.EXPIRE_DAYS || '1d';
+export const ACCESS_TOKEN_EXPIRE_DAYS = process.env.EXPIRE_DAYS || '1d';
+export const REFRESH_TOKEN_EXPIRE_DAYS = process.env.REFRESH_TOKEN_EXPIRE_DAYS || '7d';
 export const { DATABASE_URL } = process.env;
 export const ROOT_DIR =
     process.env === 'production'
