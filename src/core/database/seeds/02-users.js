@@ -2,7 +2,8 @@
  * @param {import("knex")} knex
  */
 
-const DEFAULT_PASSWORD = '$2b$10$4WxWKojNnKfDAicVsveh7.ogkWOBMV1cvRUSPCXwxA05NRX18F0QW'; // Mật khẩu mặc định đã hash
+const DEFAULT_PASSWORD =
+    '$2b$10$4WxWKojNnKfDAicVsveh7.ogkWOBMV1cvRUSPCXwxA05NRX18F0QW'; // Mật khẩu mặc định đã hash
 
 exports.seed = async knex => {
     // Xóa dữ liệu cũ trong bảng users

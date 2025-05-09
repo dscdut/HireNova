@@ -3,7 +3,6 @@
  */
 
 exports.seed = async knex => {
-
     await knex('job_descriptions').del();
 
     await knex('job_descriptions').insert([
