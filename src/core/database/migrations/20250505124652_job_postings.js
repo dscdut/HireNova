@@ -23,6 +23,7 @@ exports.up = async knex => {
         table.string('title').notNullable();
         table.text('description').defaultTo(null);
         table.string('location', 500).defaultTo(null);
+        table.text('desc_rate', 500).defaultTo(null);
         table.integer('salary_min').defaultTo(null);
         table.integer('salary_max').defaultTo(null);
         table
@@ -36,6 +37,8 @@ exports.up = async knex => {
             .enum('status', ['Pending', 'Processing', 'Completed'])
             .defaultTo('Pending');
         table.string('level').nullable().defaultTo(null);
+        table.datetime('start_time').notNullable();
+        table.datetime('end_time').notNullable();
         table.dateTime('deleted_at').defaultTo(null);
         table.timestamps(false, true);
     });

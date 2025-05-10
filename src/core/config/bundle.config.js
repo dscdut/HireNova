@@ -15,7 +15,7 @@ import { NODE_ENV } from '../env';
 export class AppBundle {
     static logger = logger;
 
-    BASE_PATH = '/api';
+    BASE_PATH = '/v1/api';
 
     BASE_PATH_SWAGGER = '/docs';
 

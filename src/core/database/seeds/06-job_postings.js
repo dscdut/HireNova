@@ -16,6 +16,9 @@ exports.seed = async knex => {
             salary_max: 120000,
             job_description_id: 1,
             status: 'Pending',
+            desc_rate: 'High demand for full-stack developers.',
+            start_time: '2025-05-15 09:00:00',
+            end_time: '2025-06-15 18:00:00',
             deleted_at: null,
         },
         {
@@ -29,6 +32,9 @@ exports.seed = async knex => {
             salary_max: 150000,
             job_description_id: 2,
             status: 'Processing',
+            desc_rate: 'AI and ML are growing fields with high salaries.',
+            start_time: '2025-05-20 10:00:00',
+            end_time: '2025-06-20 17:00:00',
             deleted_at: null,
         },
         {
@@ -41,6 +47,9 @@ exports.seed = async knex => {
             salary_max: 130000,
             job_description_id: 3,
             status: 'Completed',
+            desc_rate: 'Cybersecurity is critical for modern organizations.',
+            start_time: '2025-05-10 08:00:00',
+            end_time: '2025-06-10 16:00:00',
             deleted_at: null,
         },
     ]);
