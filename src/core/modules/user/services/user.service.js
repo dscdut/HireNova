@@ -23,7 +23,7 @@ class UserService {
             await this.repository.findByEmail(createUserDto.email),
         ).throwIfPresent(new DuplicateException('Email is being used'));
 
-        if (createUserDto.password !== createUserDto.confirm_password) {
+        if (createUserDto.password !== createUserDto.confirmPassword) {
             throw new BadRequestException('Password does not match');
         }
 
@@ -33,7 +33,7 @@ class UserService {
 
         let createdUser;
         try {
-            delete createUserDto.confirm_password;
+            delete createUserDto.confirmPassword;
             createdUser = await this.repository.insert(createUserDto, trx);
             const ROLE_USER_ID = 3;
             await this.userRoleRepository.createUserRole(
@@ -57,14 +57,6 @@ class UserService {
 
         return joinUserRoles(data);
     }
-
-    async register(registerDto) {
-        const createdUser = await this.createOne(registerDto);
-        return {
-            message: MESSAGE.REGISTER_SUCCESS,
-            user: pick(createdUser, ['id', 'email', 'name']),
-        };
-    }
 }
 
-export const UserServiceInstance = new UserService();
+export const UserServiceIns = new UserService();

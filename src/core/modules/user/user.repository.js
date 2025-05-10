@@ -46,6 +46,7 @@ class Repository extends DataRepository {
             .where('users.id', '=', id)
             .select('roles.name');
     }
+
 }
 
 export const UserRepository = new Repository('users');

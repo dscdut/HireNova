@@ -1,10 +1,12 @@
-import { AuthService } from '../../modules/auth/service/auth.service';
+import { AuthServiceInstance } from '../../modules/auth/service/auth.service';
 import { LoginDto, RegisterDto } from '../../modules/auth';
 import { ValidHttpResponse } from '../../../packages/handler/response/validHttp.response';
+import { UserServiceIns } from '../../modules/user/services/user.service';
 
 class Controller {
     constructor() {
-        this.service = AuthService;
+        this.service = AuthServiceInstance;
+        this.userService = UserServiceIns;
     }
 
     login = async req => {
@@ -12,7 +14,7 @@ class Controller {
         return ValidHttpResponse.toOkResponse(data);
     };
     register = async req => {
-        const data = await this.service.register(RegisterDto(req.body));
+        const data = await this.userService.createOne(RegisterDto(req.body));
         return ValidHttpResponse.toOkResponse(data);
     };
 }
