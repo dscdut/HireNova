@@ -15,7 +15,7 @@ const options = {
     },
     servers: [
         {
-            url: `${HOST}/api`,
+            url: `${HOST}/v1/api`,
             description: 'Server',
             variables: {
                 env: {
@@ -32,11 +32,11 @@ const options = {
             },
         },
         {
-            url: `http://localhost:${PORT}/api`,
+            url: `http://localhost:${PORT}/v1/api`,
             description: 'Dev Env',
         },
     ],
-    basePath: '/api',
+    basePath: '/v1/api',
     auth: true,
 };
 

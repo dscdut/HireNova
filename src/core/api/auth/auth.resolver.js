@@ -4,7 +4,7 @@ import { AuthController } from './auth.controller';
 
 export const AuthResolver = Module.builder()
     .addPrefix({
-        prefixPath: '/v1/api/auth',
+        prefixPath: '/auth',
         tag: 'auth',
         module: 'AuthModule'
     })
