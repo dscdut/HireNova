@@ -42,7 +42,13 @@ export class JoiUtils {
         return Joi
             .number().positive().greater(0);
     }
-
+    static optionalInteger() {
+        return Joi
+            .number()
+            .integer()
+            .optional();
+    }
+    
     static optionalStrings() {
         return Joi.array().items(JoiUtils.optionalString()).min(1);
     }
@@ -51,5 +57,8 @@ export class JoiUtils {
         return Joi.array().items(
             this.objectId()
         );
+    }
+    static requiredDateTime() {
+        return Joi.date().iso().required();
     }
 }

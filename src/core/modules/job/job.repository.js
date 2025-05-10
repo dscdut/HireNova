@@ -5,7 +5,6 @@ class JobRepository extends DataRepository {
     return this.query()
         .innerJoin('users', 'users.id', 'job_postings.user_id')
         .innerJoin('industries', 'industries.id', 'job_postings.industry_id')
-        .innerJoin('job_descriptions', 'job_descriptions.id', 'job_postings.job_description_id')
         .where('job_postings.id', '=', id)
         .select(
             'job_postings.id',
@@ -19,7 +18,21 @@ class JobRepository extends DataRepository {
             { industryName: 'industries.name' },
         )
         .first();
-}
+    }
+    create(jobPostingData) {
+        return this.query().insert(jobPostingData)
+                           .returning([
+                            'title',
+                            'description',
+                            'location',
+                            'desc_rate as descRate',
+                            'salary_min as salaryMin',
+                            'salary_max as salaryMax',
+                            'level',
+                            'start_time as startTime',
+                            'end_time as endTime',
+                        ]);
+    }
 }
 
 export const JobPostingsRepository = new JobRepository('job_postings');
