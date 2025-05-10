@@ -8,8 +8,14 @@ import {
     DuplicateException,
     BadRequestException,
 } from '../../../../packages/httpException';
+import {
+    NotFoundException,
+    DuplicateException,
+    BadRequestException,
+} from '../../../../packages/httpException';
 import { UserRepository } from '../user.repository';
 
+class UserService {
 class UserService {
     constructor() {
         this.repository = UserRepository;
@@ -22,10 +28,17 @@ class UserService {
         Optional.of(
             await this.repository.findByEmail(createUserDto.email),
         ).throwIfPresent(new DuplicateException('Email is being used'));
+        Optional.of(
+            await this.repository.findByEmail(createUserDto.email),
+        ).throwIfPresent(new DuplicateException('Email is being used'));
 
         if (createUserDto.password !== createUserDto.confirmPassword) {
             throw new BadRequestException('Password does not match');
         }
+
+        createUserDto.password = this.bcryptService.hash(
+            createUserDto.password,
+        );
 
         createUserDto.password = this.bcryptService.hash(
             createUserDto.password,
@@ -36,6 +49,11 @@ class UserService {
             delete createUserDto.confirmPassword;
             createdUser = await this.repository.insert(createUserDto, trx);
             const ROLE_USER_ID = 3;
+            await this.userRoleRepository.createUserRole(
+                createdUser[0].id,
+                ROLE_USER_ID,
+                trx,
+            );
             await this.userRoleRepository.createUserRole(
                 createdUser[0].id,
                 ROLE_USER_ID,
@@ -56,6 +74,14 @@ class UserService {
             .get();
 
         return joinUserRoles(data);
+    }
+
+    async register(registerDto) {
+        const createdUser = await this.createOne(registerDto);
+        return {
+            message: MESSAGE.REGISTER_SUCCESS,
+            user: pick(createdUser, ['id', 'email', 'name']),
+        };
     }
 }
 

@@ -14,7 +14,14 @@ export const AuthResolver = Module.builder()
             method: 'post',
             interceptors: [LoginInterceptor],
             body: 'LoginDto',
-            controller: AuthController.login,
+            controller: AuthController.login, 
+        },
+        {
+            route: '/register',
+            method: 'post',
+            interceptors: [RegisterInterceptor],
+            body: 'RegisterDto',
+            controller: AuthController.register, 
         },
         {
             route: '/register',

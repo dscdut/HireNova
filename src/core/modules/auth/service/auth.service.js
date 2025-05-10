@@ -32,11 +32,13 @@ class AuthService {
         const usersArray = [user];
         const foundUser = joinUserRoles(usersArray);
 
-        if (
-            user &&
-            this.bcryptService.compare(loginDto.password, foundUser.password)
-        ) {
-            const userInfo = this.#getUserInfo(foundUser);
+        const isPasswordValid = await this.bcryptService.compare(
+            loginDto.password,
+            foundUser.password,
+        );
+
+        if (isPasswordValid) {
+            const userInfo = this.getUserInfo(foundUser);
 
             const accessToken = this.jwtService.accessTokenSign(
                 JwtPayload(foundUser),
@@ -44,6 +46,7 @@ class AuthService {
             const refreshToken = this.jwtService.refreshTokenSign(
                 JwtPayload(foundUser),
             );
+
             const expirationDays = parseInt(
                 process.env.REFRESH_TOKEN_EXPIRATION_DAYS,
                 10,
@@ -68,15 +71,21 @@ class AuthService {
 
         throw new UnAuthorizedException('Password is incorrect');
     }
+
     async register(registerDto) {
-        registerDto.password = this.bcryptService.hash(registerDto.password);
+        registerDto.password = await this.bcryptService.hash(
+            registerDto.password,
+        );
         const createdUser = await this.userService.createOne(registerDto);
         return {
             message: MESSAGE.REGISTER_SUCCESS,
             user: pick(createdUser, ['id', 'email', 'name']),
         };
     }
-    #getUserInfo = user => pick(user, ['_id', 'email', 'name', 'roles']);
+
+    getUserInfo(user) {
+        return pick(user, ['_id', 'email', 'name', 'roles']);
+    }
 }
 
 export const AuthServiceInstance = new AuthService();

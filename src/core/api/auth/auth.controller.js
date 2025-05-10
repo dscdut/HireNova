@@ -1,5 +1,7 @@
 import { AuthServiceInstance } from '../../modules/auth/service/auth.service';
 import { LoginDto, RegisterDto } from '../../modules/auth';
+import { AuthServiceInstance } from '../../modules/auth/service/auth.service';
+import { LoginDto, RegisterDto } from '../../modules/auth';
 import { ValidHttpResponse } from '../../../packages/handler/response/validHttp.response';
 import { UserServiceIns } from '../../modules/user/services/user.service';
 
