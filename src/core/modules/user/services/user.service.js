@@ -9,19 +9,16 @@ import {
     BadRequestException,
 } from '../../../../packages/httpException';
 import { UserRepository } from '../user.repository';
-
 class Service {
     constructor() {
         this.repository = UserRepository;
         this.userRoleRepository = UserRoleRepository;
+        this.userRepository = UserRepository;
         this.bcryptService = BcryptService;
     }
 
     async createOne(createUserDto) {
         const trx = await getTransaction();
-        Optional.of(
-            await this.repository.findByEmail(createUserDto.email),
-        ).throwIfPresent(new DuplicateException('Email is being used'));
         Optional.of(
             await this.repository.findByEmail(createUserDto.email),
         ).throwIfPresent(new DuplicateException('Email is being used'));
@@ -36,25 +33,14 @@ class Service {
         let createdUser;
         try {
             delete createUserDto.confirm_password;
-            createdUser = await this.repository.insert(createUserDto, trx);
-            const ROLE_USER_ID = 3;
-            await this.userRoleRepository.createUserRole(
-                createdUser[0].id,
-                ROLE_USER_ID,
-                trx,
-            );
-            await this.userRoleRepository.createUserRole(
-                createdUser[0].id,
-                ROLE_USER_ID,
-                trx,
-            );
+            createdUser = await this.userRepository.create(createUserDto, trx);
         } catch (error) {
             await trx.rollback();
             console.error(error.message);
             return null;
         }
         trx.commit();
-        return createdUser[0];
+        return createdUser;
     }
 
     async findById(id) {
