@@ -17,6 +17,18 @@ class Controller {
         );
         return ValidHttpResponse.toOkResponse(PaginationCandidateDto(data));
     };
+
+    searchCandidate = async req => {
+        const page = req.query.page || DEFAULT_PAGE;
+        const size = req.query.size || DEFAULT_PAGE_SIZE;
+        const keyword = req.query.keyword;
+        const data = await this.service.searchCandidate(
+            page,
+            size,
+            keyword,
+        );
+        return ValidHttpResponse.toOkResponse(PaginationCandidateDto(data));
+    };
 }
 
 export const CandidateController = new Controller();

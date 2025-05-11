@@ -1,5 +1,5 @@
 import { Module } from 'packages/handler/Module';
-import { RecordId, page, size } from '../../common/swagger';
+import { RecordId, page, size, keyword} from '../../common/swagger';
 import { CandidateController } from './candidate.controller';
 import { hasHRRole } from 'core/modules/auth/guard';
 export const CandidateResolver = Module.builder()
@@ -10,11 +10,19 @@ export const CandidateResolver = Module.builder()
     })
     .register([
         {
-            route: '/',
+            route: '',
             method: 'get',
             params: [page, size],
             guards: [hasHRRole],
             controller: CandidateController.getCandidate,
             preAuthorization: true,
         },
+        {
+            route: '/search',
+            method: 'get',
+            params: [page, size, keyword],
+            guards: [hasHRRole],
+            controller: CandidateController.searchCandidate,
+            preAuthorization: true,
+        }
     ]);

@@ -17,6 +17,18 @@ class Service {
                 total,
             }
     }
+
+    async searchCandidate(page = 1, size = 10, keyword = '') {
+        const totalResult = await this.repository.getSearchTotalCount(keyword);
+        const total = totalResult?.total ? parseInt(totalResult.total, 10) : 0;
+        const data = await this.repository.searchCandidatesByNameAndJob(page, size, keyword);
+
+        return {
+            content: data.map(e => CandidateDto(e)),
+            pageSize: size,
+            total,
+        };
+    }
 }
 
 export const CandidateService = new Service();
