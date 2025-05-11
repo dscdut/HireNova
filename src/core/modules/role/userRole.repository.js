@@ -11,4 +11,4 @@ class Repository extends DataRepository {
     }
 }
 
-export const UserRoleRepository = new Repository('users_roles');
+export const UserRoleRepository = new Repository('user_roles');

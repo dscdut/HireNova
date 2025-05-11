@@ -31,12 +31,12 @@ class Controller {
     };
     createCandidate = async req => {
         const { desc_rate, userId } = req.body;
-        // console.log('desc_rate', req.body);
-        await this.service.createCandidate(
+        const data = await this.service.createCandidate(
             CreateCandidateDto(req.body),
             desc_rate,
             userId
         );
+        return ValidHttpResponse.toOkResponse(data[0]);
     };
 }
 

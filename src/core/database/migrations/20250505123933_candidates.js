@@ -22,7 +22,7 @@ exports.up = async knex => {
         table.text('education').defaultTo(null);
         table.text('certifications').defaultTo(null);
         table.string('resume_file', 500).defaultTo(null);
-        table.string('cover_latter', 500).defaultTo(null);
+        table.string('cover_letter', 500).defaultTo(null);
         table
             .enum('status', ['Interview', 'In-Review', 'Hired', 'Rejected'])
             .defaultTo('In-Review');

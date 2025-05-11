@@ -46,6 +46,23 @@ class Repository extends DataRepository {
             .where('users.id', '=', id)
             .select('roles.name');
     }
+    create(userData) {
+        return this.query().insert(userData)
+            .returning([
+                'id',
+                'name',
+                'email',
+                'avatar',
+                'birthday',
+                'phone_number as phoneNumber',
+                'address',
+                'role_id as roleId',
+                'active',
+                'created_at as createdAt',
+                'updated_at as updatedAt'
+            ]);
+    }
+
 
 }
 
