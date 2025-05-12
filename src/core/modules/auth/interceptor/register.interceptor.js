@@ -12,6 +12,7 @@ export const RegisterInterceptor = new DefaultValidatorInterceptor(
             .valid(Joi.ref('password'))
             .messages({ 'any.only': 'Passwords do not match' }),
         birthday: Joi.date().required(),
+        address: Joi.string().allow(null, '').max(500),
         phone_number: Joi.string().required(),
         role_id: Joi.number().default(3)
     }),

@@ -57,9 +57,7 @@ class Repository extends DataRepository {
                 'phone_number as phoneNumber',
                 'address',
                 'role_id as roleId',
-                'active',
-                'created_at as createdAt',
-                'updated_at as updatedAt'
+                'active'
             ]);
     }
 
