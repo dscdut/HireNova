@@ -33,6 +33,31 @@ class JobRepository extends DataRepository {
                             'end_time as endTime',
                         ]);
     }
+    findAll(filters = {}) {
+        const query = this.query()
+            .innerJoin('industries', 'industries.id', 'job_postings.industry_id')
+            .whereNull('job_postings.deleted_at')
+            .select(
+                'job_postings.id',
+                'job_postings.title',
+                'job_postings.status',
+                'job_postings.description',
+                'job_postings.location',
+                'job_postings.level',
+                'job_postings.start_time as startTime',
+                'job_postings.end_time as endTime',
+                'job_postings.salary_min as salaryMin',
+                'job_postings.salary_max as salaryMax',
+                'industries.name as industryName',
+                'job_postings.created_at as createdAt'
+            );
+
+        if (filters.status) {
+            query.where('job_postings.status', filters.status);
+        }
+
+        return query;
+    }
 }
 
 export const JobPostingsRepository = new JobRepository('job_postings');
