@@ -6,6 +6,7 @@ import { connectDatabase } from 'core/database';
 import { InvalidResolver, InvalidFilter } from '../common/exceptions/system';
 import { logger } from '../../packages/logger';
 import { NODE_ENV } from '../env';
+import cors from 'cors';
 
 /**
  * @typedef Filter
@@ -82,6 +83,22 @@ export class AppBundle {
          */
         this.app.use(express.json({ limit: '50mb' }));
         this.app.use(express.urlencoded({ extended: false, limit: '50mb' }));
+
+         /**
+         * Setup CORS
+         */
+        const allowedOrigins = process.env.CORS_ALLOW.split(',');
+        const corsOptions = {
+            origin: (origin, callback) => {
+                if (!origin || allowedOrigins.includes(origin)) {
+                    callback(null, true);
+                } else {
+                    callback(new Error('Not allowed by CORS'));
+                }
+            },
+            credentials: true,
+        };
+        this.app.use(cors(corsOptions));
 
         /**
          * Setup method override method to use PUT, PATCH,...

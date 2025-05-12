@@ -46,8 +46,8 @@ class Service {
 
         return {
             user: userInfo,
-            accessToken,
-            refreshToken,
+            access_token: accessToken,
+            refresh_token: refreshToken,
         };
     }
 

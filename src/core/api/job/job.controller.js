@@ -15,6 +15,10 @@ class Controller {
         const data = await this.service.createOne(CreateJobPostingDto(req.body));
         return ValidHttpResponse.toCreatedResponse(data[0]);
     };
+    getListJobOpening = async req => {
+        const data = await this.service.getListJobOpening();
+        return ValidHttpResponse.toOkResponse(data);
+    };
 }
 
 export const JobController = new Controller();
