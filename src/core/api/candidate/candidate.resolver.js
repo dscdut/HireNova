@@ -33,6 +33,6 @@ export const CandidateResolver = Module.builder()
             interceptors: [CreateCandidateInterceptor],
             body: 'CreateCandidateDto',
             controller: CandidateController.createCandidate,
-            preAuthorization: false
+            preAuthorization: true
         },
     ]);
