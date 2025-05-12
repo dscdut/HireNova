@@ -17,6 +17,10 @@ class JobService {
         const jobPosting = await this.repository.create(jobPostingData);
         return jobPosting;
     }
+    async getListJobOpening() {
+        const jobOpenings = await this.repository.findAll();
+        return jobOpenings;
+    }
 }
 
 export const JobPostingsService = new JobService();

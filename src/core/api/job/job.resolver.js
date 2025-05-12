@@ -19,6 +19,11 @@ export const JobResolver = Module.builder()
             controller: JobController.findById,
         },
         {
+            route: '/open',
+            method: 'get',
+            controller: JobController.getListJobOpening,
+        },
+        {
             route: '/',
             method: 'post',
             body: 'CreateJobPostingDto',
