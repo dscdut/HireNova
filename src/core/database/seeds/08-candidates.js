@@ -17,11 +17,8 @@ exports.seed = async knex => {
             certifications: 'AWS Certified Solutions Architect, Certified Scrum Master.',
             resume_file: 'resumes/user1.pdf',
             cover_letter: 'cover_letters/user1.pdf',
-<<<<<<< HEAD
-=======
-            score: '70',
->>>>>>> 6a8238cfbec8be1fc96e0a5cf913bab128ba0b21
             status: 'In-Review',
+            score: 85,
             industry_id: 1,
             job_posting_id: 1,
             deleted_at: null,
@@ -39,11 +36,8 @@ exports.seed = async knex => {
             resume_file: 'resumes/user2.pdf',
             cover_letter: 'cover_letters/user2.pdf',
             status: 'Interview',
+            score: 85,
             industry_id: 2,
-<<<<<<< HEAD
-=======
-            score: '78',
->>>>>>> 6a8238cfbec8be1fc96e0a5cf913bab128ba0b21
             job_posting_id: 2,
             deleted_at: null,
         },
@@ -60,11 +54,8 @@ exports.seed = async knex => {
             resume_file: 'resumes/user3.pdf',
             cover_letter: 'cover_letters/user3.pdf',
             status: 'Hired',
+            score: 85,
             industry_id: 3,
-<<<<<<< HEAD
-=======
-            score: '80',
->>>>>>> 6a8238cfbec8be1fc96e0a5cf913bab128ba0b21
             job_posting_id: 3,
             deleted_at: null,
         },

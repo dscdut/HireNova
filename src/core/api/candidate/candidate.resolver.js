@@ -2,6 +2,7 @@ import { Module } from 'packages/handler/Module';
 import { RecordId, page, size, keyword} from '../../common/swagger';
 import { CandidateController } from './candidate.controller';
 import { hasHRRole } from 'core/modules/auth/guard';
+import { RecordIdInterceptor } from 'core/modules/interceptor/recordId/record-id.interceptor';
 import { CreateCandidateInterceptor } from 'core/modules/candidate/interceptor';
 
 export const CandidateResolver = Module.builder()
@@ -18,6 +19,13 @@ export const CandidateResolver = Module.builder()
             guards: [hasHRRole],
             controller: CandidateController.getCandidate,
             preAuthorization: true,
+        },
+        {
+            route: '/job/:id',
+            method: 'get',
+            params: [RecordId],
+            interceptors: [RecordIdInterceptor],
+            controller: CandidateController.findById,
         },
         {
             route: '/search',

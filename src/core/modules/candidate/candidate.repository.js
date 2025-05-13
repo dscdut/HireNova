@@ -103,6 +103,31 @@ class Repository extends DataRepository {
             ]);
     }
 
+    getCandidateByJobId(jobPostingId) {
+    return this.query()
+        .innerJoin('job_postings', 'job_postings.id', 'candidates.job_posting_id') // Join với bảng job_postings
+        .select(
+            'candidates.id',
+            'candidates.name',
+            'candidates.email',
+            'candidates.phone',
+            'candidates.note',
+            'candidates.summary',
+            'candidates.experiences',
+            'candidates.education',
+            'candidates.score',
+            'candidates.certifications',
+            'candidates.resume_file as resumeFile',
+            'candidates.cover_letter as coverLatter',
+            'candidates.status',
+            'job_postings.title as jobPostingName',
+            'candidates.created_at as createdAt',
+            'candidates.updated_at as updatedAt'
+        )
+        .where('candidates.job_posting_id', jobPostingId)
+        .whereNull('candidates.deleted_at') 
+    }
+
 }
 
 export const CandidateRepository = new Repository('candidates');

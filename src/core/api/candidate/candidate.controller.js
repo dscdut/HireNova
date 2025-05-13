@@ -17,6 +17,11 @@ class Controller {
         );
         return ValidHttpResponse.toOkResponse(PaginationCandidateDto(data));
     };
+    
+    findById = async req => {
+        const data = await this.service.getCandidateByJobId(req.params.id);
+        return ValidHttpResponse.toOkResponse(data);;
+    };
 
     searchCandidate = async req => {
         const page = req.query.page || DEFAULT_PAGE;
