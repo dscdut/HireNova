@@ -13,11 +13,20 @@ exports.up = async knex => {
             .index()
             .references('id')
             .inTable('users');
+        table.text('name').defaultTo(null);
+        table.string('email').notNullable();
+        table.string('phone');
+        table.text('note').defaultTo(null);
         table.text('summary').defaultTo(null);
         table.text('experiences').defaultTo(null);
         table.text('education').defaultTo(null);
+        table.text('score').defaultTo(null);
         table.text('certifications').defaultTo(null);
         table.string('resume_file', 500).defaultTo(null);
+        table.string('cover_letter', 500).defaultTo(null);
+        table
+            .enum('status', ['Interview', 'In-Review', 'Hired', 'Rejected'])
+            .defaultTo('In-Review');
         table
             .integer('industry_id')
             .unsigned()
@@ -25,6 +34,13 @@ exports.up = async knex => {
             .index()
             .references('id')
             .inTable('industries');
+        table
+            .integer('job_posting_id')
+            .unsigned()
+            .notNullable()
+            .index()
+            .references('id')
+            .inTable('job_postings');
         table.dateTime('deleted_at').defaultTo(null);
         table.timestamps(false, true);
     });
