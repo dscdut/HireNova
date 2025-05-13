@@ -27,8 +27,8 @@ exports.up = async knex => {
         table.integer('salary_min').defaultTo(null);
         table.integer('salary_max').defaultTo(null);
         table
-            .enum('status', ['Pending', 'Processing', 'Completed'])
-            .defaultTo('Pending');
+            .enum('status', ['To Do', 'In Progress', 'Done', 'Closed'])
+            .defaultTo('To Do');
         table.string('level').nullable().defaultTo(null);
         table.datetime('start_time').notNullable();
         table.datetime('end_time').notNullable();
