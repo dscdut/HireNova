@@ -3,22 +3,41 @@ import { useQuery } from '@tanstack/react-query';
 import { jobApi } from '@/core/services/job.service';
 import { toast } from 'react-toastify';
 import { ArrowLeft } from "lucide-react"
-
+import { useState } from "react"
+import ModalFormCandidate from './Modal/ModalFormCandidate'
 export default function JobDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  console.log('Job ID:', id); // Kiểm tra id
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
+  const handleOpenModal = () => {
+    setIsModalOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+  }
+
+  const handleSubmit = (formData) => {
+    console.log("Form submitted:", formData)
+    setIsModalOpen(false)
+    // Handle form submission logic here
+  }
   const { data: job, isLoading, isError } = useQuery({
     queryKey: ['job', id],
     queryFn: async () => {
       try {
+        console.log('Calling API for Job ID:', id);
         const response = await jobApi.getJobById(id);
+        console.log('API Response:', response);
         return response;
       } catch (error) {
         console.error('API Error:', error);
         toast.error('Failed to load job details!');
         throw error;
       }
+      console.log('Job data:', job);
     },
     retry: false,
   });
@@ -36,7 +55,7 @@ export default function JobDetail() {
     return `${formatNumber(min)} - ${formatNumber(max)}`
   }
   return (
-     <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen">
       {/* Hero section with blue overlay */}
       <div className="relative">
         <div className="absolute inset-0 bg-blue-600/80 z-10" />
@@ -62,7 +81,7 @@ export default function JobDetail() {
 
           {/* Apply Button */}
           <div className="absolute z-20 top-6 right-6">
-            <button className="bg-white text-blue-600 px-6 py-2 rounded-md hover:bg-blue-50 transition font-medium">
+            <button onClick={handleOpenModal} className="bg-white text-blue-600 px-6 py-2 rounded-md hover:bg-blue-50 transition font-medium">
               Apply Now
             </button>
           </div>
@@ -85,7 +104,7 @@ export default function JobDetail() {
           </p>
         </div>
       </div>
-    
+
       {/* Job Details */}
       <div className="container mx-auto px-6 py-12 max-w-4xl">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -142,16 +161,25 @@ export default function JobDetail() {
               </div>
 
               <div className="mt-8">
-                <button className="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition font-medium">
+                <button onClick={handleOpenModal} className="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition font-medium">
                   Apply for this position
                 </button>
               </div>
             </div>
           </div>
         </div>
+        <ModalFormCandidate
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          onSubmit={handleSubmit}
+          jobId={job.id}
+          jobDesRate={job.descRate}
+          jobDes={job.description}
+        />
+
       </div>
 
-      
+
     </div>
   );
 }

@@ -12,9 +12,10 @@ ApiDocument.addModel('CreateCandidateDto', {
     education: SwaggerDocument.ApiProperty({ type: 'string', required: false }),
     certifications: SwaggerDocument.ApiProperty({ type: 'string', required: false }),
     resume_file: SwaggerDocument.ApiProperty({ type: 'string', format: 'uri', required: false }),
-    cover_latter: SwaggerDocument.ApiProperty({ type: 'string', format: 'uri', required: false }),
+    cover_letter: SwaggerDocument.ApiProperty({ type: 'string', format: 'uri', required: false }),
     status: SwaggerDocument.ApiProperty({ type: 'string', enum: ['Interview', 'In-Review', 'Hired', 'Rejected'], default: 'In-Review' }),
     industry_id: SwaggerDocument.ApiProperty({ type: 'number' }),
+    score: SwaggerDocument.ApiProperty({ type: 'number' }),
     job_posting_id: SwaggerDocument.ApiProperty({ type: 'number' })
 });
 
@@ -29,7 +30,8 @@ export const CreateCandidateDto = body => ({
     education: body.education,
     certifications: body.certifications,
     resume_file: body.resume_file,
-    cover_latter: body.cover_latter,
+    score: body.score,
+    cover_letter: body.cover_letter,
     status: body.status || 'In-Review',
     industry_id: body.industry_id,
     job_posting_id: body.job_posting_id
