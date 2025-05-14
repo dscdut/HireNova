@@ -6,7 +6,7 @@ class Service {
         this.repository = CandidateRepository;
     }
 
-    async getPaginationCandidate(page = 1, pageSize = 10) {
+    async getPaginationCandidate(id ,page = 1, pageSize = 10) {
             const totalResult = await this.repository.getTotalCount();
             const total = totalResult?.total ? parseInt(totalResult.total, 10) : 0; 
             const data = await this.repository.getPaginationCandidate(page, pageSize);
@@ -16,6 +16,13 @@ class Service {
                 pageSize,
                 total,
             }
+    }
+    async getCandidateByJobId(id) {
+        const candidate = await this.repository.getCandidateByJobId(id);
+        if (!candidate) {
+            throw new Error('Candidate not found');
+        }
+        return candidate;
     }
 
     async searchCandidate(page = 1, size = 10, keyword = '') {
