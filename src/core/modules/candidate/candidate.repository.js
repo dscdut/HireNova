@@ -15,6 +15,7 @@ class Repository extends DataRepository {
                 'candidates.experiences',
                 'candidates.education',
                 'candidates.certifications',
+                'candidates.score',
                 'candidates.resume_file as resumeFile',
                 'candidates.cover_latter as coverLetter',
                 'candidates.status',
@@ -51,6 +52,7 @@ class Repository extends DataRepository {
                 'candidates.resume_file as resumeFile',
                 'candidates.cover_latter as coverLetter',
                 'candidates.status',
+                'candidates.score',
                 'job_postings.title as jobPostingName',
                 'candidates.created_at as createdAt',
                 'candidates.updated_at as updatedAt'
@@ -88,6 +90,7 @@ class Repository extends DataRepository {
                 'summary',
                 'experiences',
                 'education',
+                'candidates.score',
                 'certifications',
                 'resume_file as resumeFile',
                 'cover_latter as coverLatter',

@@ -20,6 +20,7 @@ exports.up = async knex => {
         table.text('summary').defaultTo(null);
         table.text('experiences').defaultTo(null);
         table.text('education').defaultTo(null);
+        table.text('score').defaultTo(null);
         table.text('certifications').defaultTo(null);
         table.string('resume_file', 500).defaultTo(null);
         table.string('cover_letter', 500).defaultTo(null);
