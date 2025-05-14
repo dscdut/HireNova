@@ -12,31 +12,31 @@ export default function JobPostingDashboard() {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortConfig, setSortConfig] = useState({ key: "createdAt", direction: "desc" });
 
-  const { jobId } = useParams(); 
+  const { jobId } = useParams();
 
-  
+
   const { data: candidates = [], isLoading, isError } = useQuery({
-  queryKey: ["candidates", jobId],
-  queryFn: async () => {
-    if (!jobId) {
-      console.error("Job ID is undefined");
-      return []; 
-    }
-    try {
-      const response = await candidateApi.listCandidate(jobId);
-     
-      if (!Array.isArray(response)) {
-        return [response]; 
+    queryKey: ["candidates", jobId],
+    queryFn: async () => {
+      if (!jobId) {
+        console.error("Job ID is undefined");
+        return [];
       }
+      try {
+        const response = await candidateApi.listCandidate(jobId);
 
-      return response || [];
-    } catch (error) {
-      console.error("Failed to fetch candidates:", error);
-      throw error;
-    }
-  },
-  enabled: !!jobId, 
-});
+        if (!Array.isArray(response)) {
+          return [response];
+        }
+
+        return response || [];
+      } catch (error) {
+        console.error("Failed to fetch candidates:", error);
+        throw error;
+      }
+    },
+    enabled: !!jobId,
+  });
 
   const filteredCandidates = useMemo(() => {
     let result = [...candidates];
@@ -113,12 +113,12 @@ export default function JobPostingDashboard() {
 
   return (
     <div className="min-h-screen">
-    <Header />
+      <Header />
       <div className="bg-gray-50 min-h-screen">
-         <div className="bg-white p-4 shadow-lg flex justify-between items-center rounded-md">
-    
-         <div className="h-12 w-full"></div>
-         </div>
+        <div className="bg-white p-4 shadow-lg flex justify-between items-center rounded-md">
+
+          <div className="h-12 w-full"></div>
+        </div>
 
         <div className="p-4">
           <div className="flex justify-between items-center mb-4 flex-wrap gap-4">
@@ -148,9 +148,8 @@ export default function JobPostingDashboard() {
                   <span>{sortConfig.direction === "asc" ? "Oldest" : "Latest"}</span>
                   <ChevronDown
                     size={16}
-                    className={`transition-transform ${
-                      sortConfig.direction === "asc" ? "rotate-180" : ""
-                    }`}
+                    className={`transition-transform ${sortConfig.direction === "asc" ? "rotate-180" : ""
+                      }`}
                   />
                 </button>
               </div>
@@ -162,11 +161,10 @@ export default function JobPostingDashboard() {
               {["All", "In-Review", "Interview", "Hired", "Rejected"].map((tab) => (
                 <button
                   key={tab}
-                  className={`px-6 py-3 text-sm font-medium whitespace-nowrap ${
-                    activeTab === tab
+                  className={`px-6 py-3 text-sm font-medium whitespace-nowrap ${activeTab === tab
                       ? "text-gray-800 border-b-2 border-gray-800"
                       : "text-gray-500 hover:text-gray-800"
-                  }`}
+                    }`}
                   onClick={() => setActiveTab(tab)}
                 >
                   {tab}{" "}
@@ -201,12 +199,11 @@ export default function JobPostingDashboard() {
                             {column.label}
                             <ChevronDown
                               size={16}
-                              className={`ml-1 transition-transform ${
-                                sortConfig.key === column.key &&
-                                sortConfig.direction === "asc"
+                              className={`ml-1 transition-transform ${sortConfig.key === column.key &&
+                                  sortConfig.direction === "asc"
                                   ? "rotate-180"
                                   : ""
-                              }`}
+                                }`}
                             />
                           </button>
                         ) : (
@@ -219,6 +216,7 @@ export default function JobPostingDashboard() {
                 <tbody>
                   {sortedCandidates.length > 0 ? (
                     sortedCandidates.map((candidate) => (
+                      console.log(candidate),
                       <tr
                         key={candidate.id}
                         className="border-t border-gray-200 hover:bg-gray-50"
@@ -236,18 +234,18 @@ export default function JobPostingDashboard() {
                           {formatDate(candidate.createdAt)}
                         </td>
                         <td className="px-4 py-4 text-sm text-gray-600">
-                            {candidate.resumeFile ? (
-                              <a
-                                href={candidate.resumeFile} 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
-                                className="text-blue-600 hover:underline"
-                              >
-                                View CV
-                              </a>
-                            ) : (
-                              "No CV"
-                            )}
+                          {candidate.resumeFile ? (
+                            <a
+                              href={candidate.resumeFile}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:underline"
+                            >
+                              View CV
+                            </a>
+                          ) : (
+                            "No CV"
+                          )}
                         </td>
                         <td className="px-4 py-4 text-sm">
                           <span
