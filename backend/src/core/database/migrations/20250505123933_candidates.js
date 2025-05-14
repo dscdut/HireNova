@@ -17,7 +17,6 @@ exports.up = async knex => {
         table.string('email').notNullable();
         table.string('phone');
         table.text('note').defaultTo(null);
-        table.string('score', 500).defaultTo(null);
         table.text('summary').defaultTo(null);
         table.text('experiences').defaultTo(null);
         table.text('education').defaultTo(null);
