@@ -18,7 +18,7 @@ export const RegisterSchema = z.object({
       message:
         'Password must be at least 6 characters long, contain at least one uppercase letter and one number'
     }),
-  confirmPassword: z
+  confirm_password: z
     .string()
     .min(numberConstants.ONE, {
       message: 'Password is required'
@@ -27,7 +27,22 @@ export const RegisterSchema = z.object({
       message:
         'Password must be at least 6 characters long, contain at least one uppercase letter and one number'
     }),
-  phone: z.string().min(numberConstants.TEN, {
+  phone_number: z.string().min(numberConstants.TEN, {
     message: 'Phone number must be at least 10 characters.'
-  })
+  }),
+  birthday: z
+    .string()
+    .min(numberConstants.TEN, {
+      message: 'Birthday is required.'
+    })
+    .refine((date) => {
+      const today = new Date()
+      const birthDate = new Date(date)
+      return today > birthDate
+    }, {
+      message: 'Birthday must be in the past.'
+  }),
+  address: z.string().min(numberConstants.TWO, {
+    message: 'Address is required.'
+  }),
 })
