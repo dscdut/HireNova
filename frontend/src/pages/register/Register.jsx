@@ -32,13 +32,17 @@ export default function Register() {
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false)
 
   const form = useForm({
-    resolver: zodResolver(RegisterSchema),
-    defaultValues: {
-      email: '',
-      password: '',
-      confirmPassword: ''
-    }
-  })
+  resolver: zodResolver(RegisterSchema),
+  defaultValues: {
+    name: '',
+    email: '',
+    password: '',
+    confirm_password: '',
+    birthday: '',
+    phone_number: '',
+    address: ''
+  }
+})
 
   const mutationRegister = useMutation({
     mutationKey: mutationKeys.register,
@@ -46,21 +50,30 @@ export default function Register() {
   })
 
   function onSubmit() {
-    setIsLoading(true)
-    const registerData = form.getValues()
-    mutationRegister.mutate(registerData, {
-      onSuccess: () => {
-        toast.success('Registration successful! Please check your email to verify your account.')
-        navigate(path.login)
-      },
-      onError: () => {
-        toast.error('Registration failed!')
-      },
-      onSettled: () => {
-        setIsLoading(false)
-      }
-    })
+  setIsLoading(true)
+  const values = form.getValues()
+  const registerData = {
+    name: values.name,
+    email: values.email,
+    password: values.password,
+    confirm_password: values.confirm_password,
+    birthday: values.birthday,
+    phone_number: values.phone_number,
+    address: values.address
   }
+  mutationRegister.mutate(registerData, {
+    onSuccess: () => {
+      toast.success('Registration successful! Please check your email to verify your account.')
+      navigate(path.login)
+    },
+    onError: () => {
+      toast.error('Registration failed!')
+    },
+    onSettled: () => {
+      setIsLoading(false)
+    }
+  })
+}
 
   const togglePasswordVisibility = () => setIsPasswordVisible(!isPasswordVisible)
   const toggleConfirmPasswordVisibility = () =>
@@ -92,13 +105,33 @@ export default function Register() {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="mt-2 text-sm text-gray-600"
             >
-              Join Hire Nova to explore the best job opportunities
+              Join HireTab to explore the best job opportunities
             </motion.p>
           </div>
 
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="mt-8 space-y-6">
               <div className="space-y-4">
+
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Enter your name"
+                          type="text"
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />    
+
                 <FormField
                   control={form.control}
                   name="email"
@@ -117,6 +150,7 @@ export default function Register() {
                     </FormItem>
                   )}
                 />
+
 
                 <FormField
                   control={form.control}
@@ -141,7 +175,7 @@ export default function Register() {
 
                 <FormField
                   control={form.control}
-                  name="confirmPassword"
+                  name="confirm_password"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Confirm Password</FormLabel>
@@ -153,6 +187,63 @@ export default function Register() {
                           {...field}
                           icon={isConfirmPasswordVisible ? <IconNonEye /> : <IconEye />}
                           iconOnClick={toggleConfirmPasswordVisibility}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="birthday"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Birthday</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Enter your birthday"
+                          type="date"
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="phone_number"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Phone Number</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Enter your phone number"
+                          type="tel"
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="address"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Address</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Enter your address"
+                          type="text"
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          {...field}
                         />
                       </FormControl>
                       <FormMessage />
