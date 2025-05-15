@@ -41,6 +41,14 @@ class Service {
         return infCandidate;
     }
 
+    async deleteCandidateById(id) {
+        const candidate = await this.repository.deleteCandidateById(id);
+        if (!candidate) {
+            throw new Error('Candidate not found');
+        }
+        return { message: "Delete success" };
+    }
+
 }
 
 export const CandidateService = new Service();

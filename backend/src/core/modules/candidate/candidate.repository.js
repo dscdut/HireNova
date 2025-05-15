@@ -17,7 +17,7 @@ class Repository extends DataRepository {
                 'candidates.certifications',
                 'candidates.score',
                 'candidates.resume_file as resumeFile',
-                'candidates.cover_latter as coverLetter',
+                'candidates.cover_letter as coverLetter',
                 'candidates.status',
                 'job_postings.title as jobPostingName',
                 'candidates.created_at as createdAt',
@@ -50,7 +50,7 @@ class Repository extends DataRepository {
                 'candidates.education',
                 'candidates.certifications',
                 'candidates.resume_file as resumeFile',
-                'candidates.cover_latter as coverLetter',
+                'candidates.cover_letter as coverLetter',
                 'candidates.status',
                 'candidates.score',
                 'job_postings.title as jobPostingName',
@@ -127,7 +127,11 @@ class Repository extends DataRepository {
         .where('candidates.job_posting_id', jobPostingId)
         .whereNull('candidates.deleted_at') 
     }
-
+    deleteCandidateById(id) {
+        return this.query()
+            .where('id', id)
+            .del();
+    }
 }
 
 export const CandidateRepository = new Repository('candidates');
