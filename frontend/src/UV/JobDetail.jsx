@@ -5,6 +5,8 @@ import { toast } from 'react-toastify';
 import { ArrowLeft } from "lucide-react"
 import { useState } from "react"
 import ModalFormCandidate from './Modal/ModalFormCandidate'
+import ChatWootWidget from '@/components/ui/chatwoot-widget';
+
 export default function JobDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -179,7 +181,7 @@ export default function JobDetail() {
 
       </div>
 
-
+      <ChatWootWidget />
     </div>
   );
 }
