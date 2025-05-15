@@ -1,9 +1,9 @@
 import axios from 'axios'
-
+import axiosClient from '@/core/services/axios-client'
 const API_POSTING_URL = 'https://n8n-hirenova.gdsc.dev/webhook/post-pdf-candidate'
 
 export const candidateApi = {
-    listCandidate: id => axios.get(`/candidates/job/${id}`),
+    listCandidate: id => axiosClient.get(`/candidates/job/${id}`),
 
     postingCandidate: async formData => {
         try {
