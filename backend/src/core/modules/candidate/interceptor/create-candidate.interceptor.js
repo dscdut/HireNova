@@ -13,8 +13,9 @@ export const CreateCandidateInterceptor = new DefaultValidatorInterceptor(
         experiences: Joi.string().allow('', null),
         education: Joi.string().allow('', null),
         certifications: Joi.string().allow('', null),
+        score: Joi.number().min(0).max(100).allow('', null),
         resume_file: Joi.string().uri().allow('', null), 
-        cover_latter: Joi.string().uri().allow('', null),
+        cover_letter: Joi.string().uri().allow('', null),
         industry_id: Joi.number().required(),
         job_posting_id: Joi.number().required(),
         status: Joi.string().valid('Interview', 'In-Review', 'Hired', 'Rejected').default('In-Review')

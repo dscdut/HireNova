@@ -93,7 +93,7 @@ class Repository extends DataRepository {
                 'candidates.score',
                 'certifications',
                 'resume_file as resumeFile',
-                'cover_latter as coverLatter',
+                'cover_letter as coverLatter',
                 'status',
                 'industry_id as industryId',
                 'job_posting_id as jobPostingId',
