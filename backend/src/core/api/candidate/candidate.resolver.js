@@ -43,4 +43,13 @@ export const CandidateResolver = Module.builder()
             controller: CandidateController.createCandidate,
             preAuthorization: true
         },
+         {
+            route: '/:id',
+            method: 'delete',
+            params: [RecordId],
+            guards: [hasHRRole],
+            interceptors: [RecordIdInterceptor],
+            controller: CandidateController.deleteCandidateById,
+            preAuthorization: true,
+        },
     ]);

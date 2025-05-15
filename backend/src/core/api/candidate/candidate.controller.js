@@ -43,6 +43,11 @@ class Controller {
         );
         return ValidHttpResponse.toOkResponse(data[0]);
     };
+    
+    deleteCandidateById = async req => {
+        const data = await this.service.deleteCandidateById(req.params.id);
+        return ValidHttpResponse.toOkResponse(data);
+    }
 }
 
 export const CandidateController = new Controller();
