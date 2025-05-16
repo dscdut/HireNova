@@ -15,7 +15,7 @@ HireTab – A Recruitment Management Website created by the GDSC-DUT team.
 
 > HireTab is designed to help companies and HR departments manage their hiring processes more effectively — from posting job listings to managing applicants and tracking recruitment progress.
 
-This project will join [GDGoC Solution Challenge 2025](https://vision.hack2skill.com/event/apacsolutionchallenge?source=hack2skill&medium=homepage&utm_source=hack2skill&utm_medium=homepage&fbclid=IwY2xjawKT51pleHRuA2FlbQIxMABicmlkETFyRHFEak9xaGFadjBtVjh4AR7CsTCicWhb5MQzD_67XLBaYBK7CgqWEcPgrjxcy8vJbbKKpEr-VOALrMxLzQ_aem_EzJrYTBNfXf2j-grYDNgNQ).
+This project will join [APAC Solution Challenge 2025](https://vision.hack2skill.com/event/apacsolutionchallenge?source=hack2skill&medium=homepage&utm_source=hack2skill&utm_medium=homepage&fbclid=IwY2xjawKT51pleHRuA2FlbQIxMABicmlkETFyRHFEak9xaGFadjBtVjh4AR7CsTCicWhb5MQzD_67XLBaYBK7CgqWEcPgrjxcy8vJbbKKpEr-VOALrMxLzQ_aem_EzJrYTBNfXf2j-grYDNgNQ).
 
 ## 🚀 Key Features
 
