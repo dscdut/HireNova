@@ -60,6 +60,11 @@ class JobRepository extends DataRepository {
 
         return query;
     }
+    deleteById(id) {
+        return this.query()
+            .where('id', id)
+            .del();
+    }
 }
 
 export const JobPostingsRepository = new JobRepository('job_postings');
