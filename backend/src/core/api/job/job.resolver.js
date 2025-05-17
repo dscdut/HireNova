@@ -31,4 +31,12 @@ export const JobResolver = Module.builder()
             controller: JobController.createOne,
             preAuthorization: true,
         },
+        {
+            route: '/:id',
+            method: 'delete',
+            params: [RecordId],
+            interceptors: [RecordIdInterceptor],
+            controller: JobController.deleteJobById,
+            preAuthorization: true,
+        },
     ]);

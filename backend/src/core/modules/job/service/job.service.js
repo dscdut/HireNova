@@ -21,6 +21,13 @@ class JobService {
         const jobOpenings = await this.repository.findAll();
         return jobOpenings;
     }
+    async deleteJobById(id) {
+        const jobPosting = await this.repository.deleteById(id);
+        if (!jobPosting) {
+            throw new Error('Job posting not found');
+        }
+        return { message: "Delete success" };
+    }
 }
 
 export const JobPostingsService = new JobService();
